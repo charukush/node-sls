@@ -14,3 +14,15 @@ functions:
       - http:
           path: hello
           method: get
+  createContent:
+    handler: content.contentAdded
+    events:
+      - http:
+          path: content
+          method: put 
+  contentList:
+    handler: content.contentDisplay
+    events:
+      - http:
+          path: content
+          method: get                     
