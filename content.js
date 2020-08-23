@@ -1,9 +1,16 @@
 'use strict';
- var createList = [];
+const AWS = require('aws-sdk');
+
 module.exports.contentAdded = async event => {
+    const docClient = new AWS.DynamoDB.DocumentClient();
     var body = event.body;
     var parseBody = JSON.parse(body);
-    createList.push(parseBody);
+    
+    var params = {
+      TableName: "content",
+      Item: parseBody
+    };
+    var resp = await docClient.put(params).promise()
     return {
       statusCode: 200,
       body: JSON.stringify(
@@ -19,16 +26,17 @@ module.exports.contentAdded = async event => {
   };
 
   module.exports.contentDisplay = async event => {
-
+    // Create connection to DynamoDB
+    const docClient = new AWS.DynamoDB.DocumentClient();
+    const params = {
+      TableName: "content"
+    };
+    var resp = await docClient.scan(params).promise();
     return {
       statusCode: 200,
       body: JSON.stringify(
-          createList 
-
-
+        resp
       ),
     };
-  
-    
   };
   
