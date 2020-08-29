@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/charukush/node-sls#readme",
   "devDependencies": {
+    "aws-sdk": "^2.742.0",
+    "serverless": "^1.80.0",
     "serverless-offline": "^6.5.0"
   }
 }
