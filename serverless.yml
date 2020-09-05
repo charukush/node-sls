@@ -46,7 +46,23 @@ functions:
           request: 
             parameters: 
               paths: 
-                id: true          
+                id: true   
+  contentUpdate:
+    handler: content.contentUpdate
+    events:
+      - http:
+          path: content
+          method: post
+  contentListId:
+    handler: content.contentID
+    events:
+      - http:
+          path: content/{id}
+          method: get            
+          
+
+          
+                          
 
 resources: # CloudFormation template syntax from here on.
   Resources:

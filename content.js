@@ -1,6 +1,6 @@
 'use strict';
 var AWS = require('aws-sdk');
-
+// Create Content
 module.exports.contentAdded = async event => {
     var docClient = new AWS.DynamoDB.DocumentClient();
     var body = event.body;
@@ -35,6 +35,7 @@ module.exports.contentAdded = async event => {
     
   };
 
+  // Display list
   module.exports.contentDisplay = async event => {
     var docClient = new AWS.DynamoDB.DocumentClient();
     var params = {
@@ -76,3 +77,53 @@ module.exports.contentAdded = async event => {
   
     
   };
+
+
+// Content Update
+  module.exports.contentUpdate = async event => {
+    var body = event.body;
+    var parseBody = JSON.parse(body);
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var param = {
+      TableName: "content",
+      Key: {
+        "id" : parseBody.id
+      },
+      UpdateExpression: "set title = :t, summary=:s",
+      ExpressionAttributeValues:{
+        ":t":parseBody.title,
+        ":s":parseBody.summary,
+        
+    },
+    ReturnValues:"UPDATED_NEW"
+    }
+    await docClient.update(param).promise();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(
+        {Message: 'data Updated'}
+      ),
+    };
+  
+    
+  };
+// Content List by Id
+async function contentID(event){
+  var docClient = new AWS.DynamoDB.DocumentClient();
+  var id = event.pathParameters.id;
+  var param = {
+    TableName: "content",
+    Key :{
+      "id": id
+    }
+  }
+  var resp = await docClient.get(param).promise();
+  return {
+    statusCode: 200,
+    body: JSON.stringify(
+      resp
+    ),
+  };
+}
+  
+module.exports.contentID = contentID;
