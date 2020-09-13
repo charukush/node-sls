@@ -1,8 +1,9 @@
 'use strict';
 var AWS = require('aws-sdk');
+var docClient = new AWS.DynamoDB.DocumentClient();
 // Create Content
 module.exports.contentAdded = async event => {
-    var docClient = new AWS.DynamoDB.DocumentClient();
+    
     var body = event.body;
     var parseBody = JSON.parse(body);
     var param = {
@@ -37,7 +38,7 @@ module.exports.contentAdded = async event => {
 
   // Display list
   module.exports.contentDisplay = async event => {
-    var docClient = new AWS.DynamoDB.DocumentClient();
+    
     var params = {
       TableName: "content",
     };
@@ -55,7 +56,7 @@ module.exports.contentAdded = async event => {
 // Delete content by id
   module.exports.contentDelete = async event => {
     var id = event.pathParameters.id;
-    var docClient = new AWS.DynamoDB.DocumentClient();
+    
     var params = {
       TableName: "content",
       Key:{
@@ -83,7 +84,7 @@ module.exports.contentAdded = async event => {
   module.exports.contentUpdate = async event => {
     var body = event.body;
     var parseBody = JSON.parse(body);
-    var docClient = new AWS.DynamoDB.DocumentClient();
+    
     var param = {
       TableName: "content",
       Key: {
@@ -109,7 +110,7 @@ module.exports.contentAdded = async event => {
   };
 // Content List by Id
 async function contentID(event){
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  
   var id = event.pathParameters.id;
   var param = {
     TableName: "content",

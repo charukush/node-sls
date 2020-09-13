@@ -1,4 +1,7 @@
 service: node-sls
+custom:
+  serverless-offline:
+    useChildProcesses: true
 
 provider:
   name: aws
