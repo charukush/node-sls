@@ -47,7 +47,7 @@ module.exports.contentAdded = async event => {
     return {
       statusCode: 200,
       body: JSON.stringify(
-        resp
+        resp.Items
       ),
     };
   
@@ -122,7 +122,7 @@ async function contentID(event){
   return {
     statusCode: 200,
     body: JSON.stringify(
-      resp
+      resp.Item
     ),
   };
 }
