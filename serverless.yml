@@ -14,3 +14,19 @@ functions:
       - http:
           path: hello
           method: get
+
+  createContent:
+    handler: content.createContent
+    events:
+      - http:
+          path: content
+          method: put
+
+  contentList:
+    handler: content.contentList
+    events:
+      - http:
+          path: content
+          method: get
+
+          
